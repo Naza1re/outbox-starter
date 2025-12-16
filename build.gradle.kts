@@ -51,3 +51,25 @@ allOpen {
 tasks.withType<Test> {
     useJUnitPlatform()
 }
+
+publishing {
+    publications {
+        create<MavenPublication>("gpr") {
+            from(components["java"])
+            groupId = "com.kotlin"
+            artifactId = "outbox-starter"
+            version = project.version.toString()
+        }
+    }
+
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/Naza1re/outbox-starter")
+            credentials {
+                username = project.findProperty("gpr.user") as? String ?: System.getenv("USERNAME_GITHUB")
+                password = project.findProperty("gpr.key") as? String ?: System.getenv("TOKEN_GITHUB")
+            }
+        }
+    }
+}
