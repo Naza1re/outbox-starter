@@ -1,0 +1,50 @@
+name: publish outbox starter
+
+on:
+  push:
+    branches:
+      - develop
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    env:
+      USERNAME_GITHUB: ${{ github.actor }}
+      TOKEN_GITHUB: ${{ secrets.TOKEN_GITHUB }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v3
+        with:
+          java-version: 17
+          distribution: temurin
+          server-id: github
+          settings-path: ${{ github.workspace }}
+      - name: Cache Gradle packages
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper/
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+      - name: Make Gradle wrapper executable
+        run: chmod +x gradlew
+
+      - name: Build
+        run: ./gradlew clean build -x test
+
+      - name: Debug env
+        run: |
+          echo "USERNAME_GITHUB=$USERNAME_GITHUB"
+          echo "TOKEN_GITHUB=${TOKEN_GITHUB:0:4}***"
+
+      - name: Publish to GitHub Packages
+        env:
+          USERNAME_GITHUB: ${{ github.actor }}
+          TOKEN_GITHUB: ${{ secrets.TOKEN_GITHUB }}
+        run: ./gradlew publish
