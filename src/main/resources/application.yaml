@@ -1,19 +1,39 @@
 spring:
   application:
-    name: entity-framework
+    name: ${SPRING_APPLICATION_NAME:outbox-starter}
+
   datasource:
-    driver-class-name: org.postgresql.Driver
+    driver-class-name: ${SPRING_DATASOURCE_DRIVER:org.postgresql.Driver}
     url: ${DB_URL:jdbc:postgresql://localhost:5050/db}
-    password: ${DB_PASSWORD:pass}
     username: ${DB_USERNAME:user}
+    password: ${DB_PASSWORD:pass}
+
   jpa:
     hibernate:
-      ddl-auto: validate
+      ddl-auto: ${SPRING_JPA_HIBERNATE_DDL_AUTO:validate}
     properties:
       hibernate:
-        show_sql: false
-        format_sql: true
-    show-sql: true
+        show_sql: ${SPRING_JPA_SHOW_SQL:true}
+        format_sql: ${SPRING_JPA_FORMAT_SQL:true}
+    show-sql: ${SPRING_JPA_SHOW_SQL:true}
+
   liquibase:
-    change-log: classpath:/db/changelog/db.changelog-outbox-master.xml
-    enabled: true
+    change-log: ${SPRING_LIQUIBASE_CHANGELOG:classpath:/db/changelog/db.changelog-outbox-master.xml}
+    enabled: ${SPRING_LIQUIBASE_ENABLED:true}
+    default-schema: entity_framework
+
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+    producer:
+      key-serializer: ${KAFKA_PRODUCER_KEY_SERIALIZER:org.apache.kafka.common.serialization.StringSerializer}
+      value-serializer: ${KAFKA_PRODUCER_VALUE_SERIALIZER:org.springframework.kafka.support.serializer.JsonSerializer}
+app:
+  scheduler:
+    cron: ${OUTBOX_SCHEDULER_CRON:*/10 * * * * *}
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+    topics:
+      test-topic:
+        name: test-topic
+        partition: 1
+
