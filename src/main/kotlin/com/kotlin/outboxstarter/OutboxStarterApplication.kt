@@ -1,12 +1,14 @@
 package com.kotlin.outboxstarter
 
 import com.kotlin.outboxstarter.kafka.objects.ExampleObject
-import com.kotlin.outboxstarter.model.OutboxMessage
 import com.kotlin.outboxstarter.service.OutboxMessageService
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import org.springframework.scheduling.annotation.EnableScheduling
-import org.springframework.web.bind.annotation.*
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RestController
 
 @EnableScheduling
 @SpringBootApplication
