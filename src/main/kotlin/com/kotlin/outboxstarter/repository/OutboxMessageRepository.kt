@@ -18,8 +18,10 @@ interface OutboxMessageRepository : JpaRepository<OutboxMessage, Long>, JpaSpeci
         SELECT o FROM OutboxMessage o
         WHERE o.status = :status
         ORDER BY o.createdAt
+        LIMIT :batch
     """)
-    fun findBatchForUpdate(
+    fun findBatchForUpdateByStatus(
+        @Param("batch") batch: Int,
         @Param("status") status: MessageStatus
     ): List<OutboxMessage>
 }

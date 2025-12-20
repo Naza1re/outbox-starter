@@ -7,9 +7,11 @@ import org.springframework.stereotype.Component
 
 @Component
 @Configuration
-@ConfigurationProperties("app.scheduler")
-class SchedulerProperties {
+@ConfigurationProperties("outbox.scheduler")
+class OutboxSchedulerProperties {
+
     var cron: String = "*/10 * * * * *"
+    var batch: Int = 10
 
     @Bean
     fun outboxSchedulerCron() : String {
