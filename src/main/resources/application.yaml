@@ -32,8 +32,4 @@ app:
     cron: ${OUTBOX_SCHEDULER_CRON:*/10 * * * * *}
   kafka:
     bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
-    topics:
-      test-topic:
-        name: test-topic
-        partition: 1
 
