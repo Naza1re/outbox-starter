@@ -9,7 +9,7 @@ plugins {
 }
 
 group = "com.kotlin"
-version = "0.0.4"
+version = "0.0.5"
 description = "outbox-starter"
 
 java {
