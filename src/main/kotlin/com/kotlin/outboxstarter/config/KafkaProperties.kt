@@ -4,7 +4,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties
 import org.springframework.stereotype.Component
 
 @Component
-@ConfigurationProperties("app.kafka")
+@ConfigurationProperties("outbox.kafka")
 class KafkaProperties {
     lateinit var bootstrapServers : String
 }
