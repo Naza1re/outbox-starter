@@ -12,8 +12,8 @@ class KafkaTopicConfig(
     private val properties: KafkaProperties
 ) {
 
-    @Bean
-    fun kafkaAdmin(): KafkaAdmin {
+    @Bean("outboxKafkaAdmin")
+    fun outboxKafkaAdmin(): KafkaAdmin {
         val configs = mapOf<String, Any>(
             AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG to properties.bootstrapServers
         )
