@@ -9,7 +9,7 @@ plugins {
 }
 
 group = "com.kotlin"
-version = "0.0.2"
+version = "0.0.3"
 description = "outbox-starter"
 
 java {
@@ -34,9 +34,10 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter")
     implementation("org.liquibase:liquibase-core")
+    implementation("org.springframework.kafka:spring-kafka")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.postgresql:postgresql")
-    implementation("com.vladmihalcea:hibernate-types-60:2.21.1")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.15.2")
     implementation("org.mapstruct:mapstruct:1.6.3")
     kapt("org.mapstruct:mapstruct-processor:1.6.3")
     compileOnly("org.projectlombok:lombok:1.18.32")
